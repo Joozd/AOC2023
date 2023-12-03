@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.aoc2023.common.Solution
 
 /**
- * @see https://adventofcode.com/2023/day/1
+ * https://adventofcode.com/2023/day/1
  */
 class Day1: Solution(1) {
 
