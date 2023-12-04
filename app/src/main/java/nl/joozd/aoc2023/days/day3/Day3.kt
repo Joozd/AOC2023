@@ -77,7 +77,7 @@ class Day3: Solution(3) {
         numbers: List<NumberFinder.Number>
     ): Map<IntVector, List<NumberFinder.Number>> {
         return gears.associateWith { gear ->
-            numbers.filter { number -> gear.hasNeighboursIn(number.span) }
+            numbers.filter { number -> ((gear+ IntVector.NW)..(gear+ IntVector.SE)).overlaps(number.span) }
         }
     }
 }

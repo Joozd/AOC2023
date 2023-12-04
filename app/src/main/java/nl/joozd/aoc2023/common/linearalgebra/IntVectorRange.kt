@@ -14,4 +14,11 @@ class IntVectorRange(start: IntVector, endInclusive: IntVector) : ClosedRange<In
     override fun contains(value: IntVector): Boolean =
         value.size == start.size
                 && value.indices.all{ value[it] in start[it].. endInclusive[it] }
+
+    infix fun overlaps(other: IntVectorRange): Boolean =
+        start.indices.all{
+            start[it] <= other.endInclusive[it] && endInclusive[it] >= other.start[it]
+        }
+
+    override fun toString() = "IntVector($start)..($endInclusive)"
 }

@@ -22,4 +22,20 @@ class IntVectorRangeTest {
         assert(left in left..left)
         assert (right !in left..left)
     }
+
+    @Test
+    fun testOverlap(){
+        val base = IntVector(5,5).. IntVector(10,10)
+        val inside = IntVector(6,6)..IntVector(7,8) // inside
+        val outside = IntVector(5,11)..IntVector(10,15) // outside
+        val partial = IntVector(4,4)..IntVector(200,200) // partial overlap
+        val partialOneAxis = IntVector(6,6)..IntVector(7,20)
+
+        assert(inside.overlaps(base))
+        assert(!outside.overlaps(base))
+        assert(partial.overlaps(base))
+        assert(partialOneAxis.overlaps(base))
+
+
+    }
 }
