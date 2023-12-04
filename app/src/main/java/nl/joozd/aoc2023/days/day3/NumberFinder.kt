@@ -28,6 +28,5 @@ class NumberFinder(input: String) {
         }
     }
 
-    data class Number(val value: Int, val startPosition: IntVector, val length: Int){
-    }
+    data class Number(val value: Int, val startPosition: IntVector, val length: Int)
 }

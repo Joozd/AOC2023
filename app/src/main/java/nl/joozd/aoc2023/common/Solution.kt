@@ -19,7 +19,7 @@ import kotlin.coroutines.CoroutineContext
 abstract class Solution(private val day: Int): CoroutineScope  {
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Main // Or another dispatcher as needed
+        get() = job + Dispatchers.Default // Or another dispatcher as needed
 
 
     open val oneAndTwoAreDependant = false

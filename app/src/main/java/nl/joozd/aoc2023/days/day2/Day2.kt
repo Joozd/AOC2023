@@ -53,7 +53,6 @@ class Day2: Solution(2) {
     }
 
     private fun validGrab(grab: String): Boolean{
-        println("grab: $grab")
         val cubes = cubesMap(grab)
         return (cubes["red"]?: 0) <= MAX_RED
                 && (cubes["green"]?: 0) <= MAX_GREEN
