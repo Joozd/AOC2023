@@ -3,21 +3,15 @@ package nl.joozd.aoc2023.days.day4
 import nl.joozd.aoc2023.common.Solution
 
 class Day4: Solution(4) {
-    override fun answer1(input: String): Any {
-        val cardNumberLength = input.indexOf(':') + 2 // 0-indexed, followed by a whitespace
-        val cards = input.lines().map { it.drop(cardNumberLength) } // get the relevant part of every card (winning and actual numbers)
-        return cards.sumOf { getCardValue(it) } // drop first part of string here, so we don't have to calculate that every time (card number length is fixed)
-    }
-
+    override fun answer1(input: String): Any =
+        getCardsNumbersPartOnly(input).sumOf { getCardValue(it) }
 
     /**
      * Keep a list of how many of each card we have.
      * We multiply the result of each card by the amount of it we have, and modify the list that keeps track of the amount of cards in place.
      */
     override fun answer2(input: String): Any {
-        val cardNumberLength = input.indexOf(':') + 2 // 0-indexed, followed by a whitespace
-        val cards = input.lines().map { it.drop(cardNumberLength) }
-
+        val cards = getCardsNumbersPartOnly(input)
         val copies = IntArray(cards.size) { 1 } // start with 1 of each card
 
         cards.forEachIndexed { i, card ->
@@ -30,16 +24,20 @@ class Day4: Solution(4) {
         return copies.sum()
     }
 
-
-    private fun countWinningNumbers(line: String): Int{
-        val left: List<Int>
-        val right: List<Int>
-        line.split(" | ").let{
-            left = it[0].numbers()
-            right = it[1].numbers()
-        }
-        return right.count { it in left }
+    /**
+     * Drop first part of card (with the card number in it) and return a list of card data Strings.
+     */
+    private fun getCardsNumbersPartOnly(input: String): List<String>{
+        val cardNumberLength = input.indexOf(':') + 2 // 0-indexed, followed by a whitespace
+        return input.lines().map { it.drop(cardNumberLength) }
     }
+
+    private fun countWinningNumbers(line: String): Int =
+        line.split(" | ").let{
+            val winningNumbers = it[0].numbers()
+            val actualNumbers = it[1].numbers()
+            actualNumbers.count { actualNumber -> actualNumber in winningNumbers }
+        }
 
     /**
      * The answer is 1 for 1 winning card, doubled for every next winning card, or 0 for 0 winning cards.
