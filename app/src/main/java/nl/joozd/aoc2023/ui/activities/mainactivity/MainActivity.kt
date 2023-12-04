@@ -89,7 +89,7 @@ fun DaySolution(solution: Solution, modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true, widthDp = 411)
+@Preview(showBackground = true, widthDp = 360)
 @Composable
 private fun GreetingPreview() {
     AOC2023Theme {
