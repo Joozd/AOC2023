@@ -11,6 +11,9 @@ class IntVectorRangeTest {
         assert(IntVector(3,3) in topLeft..bottomRight)
         assert(IntVector(1,1) !in topLeft..bottomRight)
 
+        assert(IntVector(3,3) in bottomRight..topLeft)
+        assert(IntVector(1,1) !in bottomRight..topLeft)
+
         val left = IntVector(0,1)
         val right = IntVector(0,20)
         assert(IntVector(0,10) in left..right)
