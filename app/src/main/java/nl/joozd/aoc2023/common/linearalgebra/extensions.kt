@@ -4,7 +4,14 @@ package nl.joozd.aoc2023.common.linearalgebra
  * For performance, use a HashSet for [otherPositionVectors] if it is a large list.
  */
 fun IntVector.hasNeighboursIn(otherPositionVectors: Collection<IntVector>): Boolean =
-    listOf(
+    potentialNeighbours().any { it in otherPositionVectors }
+
+fun IntVector.hasNeighboursIn(otherPositionVectors: IntVectorRange): Boolean =
+    potentialNeighbours().any { it in otherPositionVectors }
+
+// Function to generate a list of potential neighbours
+private fun IntVector.potentialNeighbours(): Sequence<IntVector> {
+    return sequenceOf(
         IntVector.NW,
         IntVector.NORTH,
         IntVector.NE,
@@ -14,8 +21,8 @@ fun IntVector.hasNeighboursIn(otherPositionVectors: Collection<IntVector>): Bool
 
         IntVector.SW,
         IntVector.SOUTH,
-        IntVector.SE).any {
-            this + it in otherPositionVectors
+        IntVector.SE
+    ).map { this + it }
 }
 
 // Only works with a 2-dimensional vector

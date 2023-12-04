@@ -11,6 +11,8 @@ class Day3Test {
         val day3 = Day3()
         assertEquals(4361, day3.answer1(testData))
 
+        assertEquals(467835, day3.answer2(testData))
+
 
     }
 

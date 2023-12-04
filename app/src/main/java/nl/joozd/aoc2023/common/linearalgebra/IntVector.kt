@@ -3,7 +3,7 @@ package nl.joozd.aoc2023.common.linearalgebra
 /**
  * IntVectors are immutable.
  */
-open class IntVector(vararg x: Int): Iterable<Int> {
+open class IntVector(vararg x: Int): Iterable<Int>, Comparable<IntVector> {
     constructor(x: List<Int>): this(*x.toIntArray())
 
     protected val vector: IntArray = x
@@ -44,6 +44,8 @@ open class IntVector(vararg x: Int): Iterable<Int> {
      */
     operator fun times(scalar: Int): IntVector = IntVector(this.map { it * scalar})
 
+    operator fun rangeTo(other: IntVector)= IntVectorRange(this, other)
+
     /**
      * Get the cross product of two (3-dimensional) vectors.
      */
@@ -54,6 +56,21 @@ open class IntVector(vararg x: Int): Iterable<Int> {
         newVector[1] = vector[2] * other[0] - vector[0] * other[2] // y = az*bx - ax*bz
         newVector[2] = vector[0] * other[1] - vector[1] * other[0] // z = ax*by - ay*bx
         return IntVector(*newVector)
+    }
+
+    /**
+     * Compares this object with the specified object for order. Returns zero if this object is equal
+     * to the specified [other] object, a negative number if it's less than [other], or a positive number
+     * if it's greater than [other].
+     * Undefined for vectors in different spans.
+     */
+    override fun compareTo(other: IntVector): Int {
+        if(other.size != this.size) return 0 // returns 0 for different length vectors
+        vector.indices.forEach{ i->
+            if (this[i] != other[i])
+                return this[i] - other[i]
+        }
+        return 0 // if no different values in Vector, they are the same.
     }
 
     override fun equals(other: Any?) =
