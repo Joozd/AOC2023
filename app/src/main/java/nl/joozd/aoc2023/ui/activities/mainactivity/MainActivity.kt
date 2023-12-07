@@ -3,6 +3,7 @@ package nl.joozd.aoc2023.ui.activities.mainactivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +31,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 class MainActivity : ComponentActivity() {
+    val viewModel: MainActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,61 +41,72 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-@Composable
-private fun MyApp(
-    modifier: Modifier = Modifier
-) {
-    LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
-        items(items = days){ solution ->
-            DaySolution(solution = solution)
+    @Composable
+    private fun MyApp(
+        modifier: Modifier = Modifier
+    ) {
+        LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
+            items(items = days){ solution ->
+                DaySolution(solution = solution)
+            }
         }
     }
-}
 
 
-@Composable
-fun DaySolution(solution: Solution, modifier: Modifier = Modifier) {
+    @Composable
+    fun DaySolution(solution: Solution, modifier: Modifier = Modifier) {
+        // we use [remember] instead of [rememberSaveable] so we get to recalculate on process death.
+        // Answers are cached in viewModel (on flow collection)
+        var answers by remember { mutableStateOf(solution.placeholderData) }
+        var calculate by remember { mutableStateOf(false) }
+        var answersFlow: Flow<Solution.SolutionData> by remember { mutableStateOf(emptyFlow()) }
 
-    var answers by remember { mutableStateOf(solution.placeholderData) }
-    var calculate by remember { mutableStateOf(false) }
-    var answersFlow: Flow<Solution.SolutionData> by remember { mutableStateOf(emptyFlow()) }
+        val context = LocalContext.current
 
-    val context = LocalContext.current
-
-    LaunchedEffect(calculate){
-        if(calculate)
-            answersFlow.collect{ aa ->
-                answers = aa
+        LaunchedEffect(calculate){
+            // Check if cached data exists, if so, display that
+            val cachedAnswer = viewModel.cachedData[answers.id] ?: solution.placeholderData
+            if (cachedAnswer.result1 != Solution.NOT_FOUND_YET || cachedAnswer.result2 != Solution.NOT_FOUND_YET) {
+                calculate = true // removes "calculate button"
+                answers = cachedAnswer
             }
-    }
-
-    Surface(color = MaterialTheme.colorScheme.primary,
-        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
-        Row(modifier = Modifier.padding(24.dp)) {
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(text = "Day ${answers.id}", style = MaterialTheme.typography.headlineMedium)
-                Text(text = "1: ${answers.result1}")
-                Text(text = "2: ${answers.result2}")
-            }
-            if(!calculate)
-                ElevatedButton(onClick = {
-                    answersFlow = solution.answers(context)
-                    calculate = true
-                }) {
-                    Text("Calculate")
+            else if(calculate) {
+                // This happens if calculate is presed and no data is cached
+                answersFlow.collect { aa ->
+                    answers = aa
+                    viewModel.cachedData[answers.id] = answers
                 }
+            }
+        }
+
+        Surface(color = MaterialTheme.colorScheme.primary,
+            modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
+            Row(modifier = Modifier.padding(24.dp)) {
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(text = "Day ${answers.id}", style = MaterialTheme.typography.headlineMedium)
+                    Text(text = "1: ${answers.result1}")
+                    Text(text = "2: ${answers.result2}")
+                }
+                if(!calculate)
+                    ElevatedButton(onClick = {
+                        answersFlow = solution.answers(context)
+                        calculate = true
+                    }) {
+                        Text("Calculate")
+                    }
+            }
+        }
+    }
+
+    @Preview(showBackground = true, widthDp = 360)
+    @Composable
+    private fun GreetingPreview() {
+        AOC2023Theme {
+            MyApp()
         }
     }
 }
 
-@Preview(showBackground = true, widthDp = 360)
-@Composable
-private fun GreetingPreview() {
-    AOC2023Theme {
-        MyApp()
-    }
-}

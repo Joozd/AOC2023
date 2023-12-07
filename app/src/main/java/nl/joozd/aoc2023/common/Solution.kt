@@ -91,6 +91,6 @@ abstract class Solution(private val day: Int): CoroutineScope  {
     data class SolutionData(val id: Int, val result1: String = NOT_FOUND_YET, val result2: String = NOT_FOUND_YET)
 
     companion object{
-        private const val NOT_FOUND_YET = "Not found yet"
+        const val NOT_FOUND_YET = "Not found yet"
     }
 }
