@@ -82,21 +82,26 @@ class MainActivity : ComponentActivity() {
 
         Surface(color = MaterialTheme.colorScheme.primary,
             modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
-            Row(modifier = Modifier.padding(24.dp)) {
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(text = "Day ${answers.id}", style = MaterialTheme.typography.headlineMedium)
-                    Text(text = "1: ${answers.result1}")
-                    Text(text = "2: ${answers.result2}")
+            Column(modifier = Modifier.padding(24.dp)) {
+                Row(modifier) {
+                    Text(text = solution.displayName, style = MaterialTheme.typography.headlineMedium)
                 }
-                if(!calculate)
-                    ElevatedButton(onClick = {
-                        answersFlow = solution.answers(context)
-                        calculate = true
-                    }) {
-                        Text("Calculate")
+                Row(modifier) {
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+
+                        Text(text = "1: ${answers.result1}")
+                        Text(text = "2: ${answers.result2}")
                     }
+                    if (!calculate)
+                        ElevatedButton(onClick = {
+                            answersFlow = solution.answers(context)
+                            calculate = true
+                        }) {
+                            Text("Calculate")
+                        }
+                }
             }
         }
     }
