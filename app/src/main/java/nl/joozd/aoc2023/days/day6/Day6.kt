@@ -1,6 +1,7 @@
 package nl.joozd.aoc2023.days.day6
 
 import nl.joozd.aoc2023.common.Solution
+import nl.joozd.aoc2023.common.multiply
 import nl.joozd.aoc2023.common.splitToLongs
 
 /**
@@ -29,7 +30,7 @@ class Day6: Solution(6) {
         }
 
         // The answer is the all solutions multiplied by each other
-        return validSolitions.reduce { acc, solutions -> acc * solutions }
+        return validSolitions.multiply()
     }
 
     /**

@@ -27,7 +27,7 @@ abstract class Solution(private val day: Int): CoroutineScope  {
     open val name: String = ""
 
     val displayName get() = if (name.isBlank()) "Day $day"
-        else "Day $day: $name"
+        else "$day: $name"
 
     private suspend fun input(context: Context): String =
         readAssetFile(context, "input$day.txt")

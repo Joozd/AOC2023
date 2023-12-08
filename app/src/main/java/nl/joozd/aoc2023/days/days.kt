@@ -8,6 +8,7 @@ import nl.joozd.aoc2023.days.day4.Day4
 import nl.joozd.aoc2023.days.day5.Day5
 import nl.joozd.aoc2023.days.day6.Day6
 import nl.joozd.aoc2023.days.day7.Day7
+import nl.joozd.aoc2023.days.day8.Day8
 
 
 // A List of all days. Instantiate your Solution classes here to make them appear in the results.
@@ -18,5 +19,6 @@ val days = listOf<Solution>(
     Day4(),
     Day5(),
     Day6(),
-    Day7()
+    Day7(),
+    Day8()
 )
