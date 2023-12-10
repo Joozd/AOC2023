@@ -14,6 +14,8 @@ open class IntVector(vararg x: Int): Iterable<Int>, Comparable<IntVector> {
 
     fun inverse(): IntVector = IntVector(vector.map { it * -1})
 
+    fun copy() = IntVector(*vector)
+
     operator fun get(i: Int): Int = vector[i]
 
     operator fun plus(other: IntVector): IntVector {
@@ -85,6 +87,10 @@ open class IntVector(vararg x: Int): Iterable<Int>, Comparable<IntVector> {
 
     override fun toString(): String = "[${vector.joinToString()}]"
 
+    // Helper function to get the value in a list of Strings. Used a lot in ASCII maps.
+    fun itemInStringsList(stringsList: List<String>): Char? =
+        stringsList.getOrNull(vector[1])?.getOrNull(vector[0])
+
     companion object{
         // helpers for 2d grids
         val NORTH = IntVector(0,-1)
@@ -96,6 +102,5 @@ open class IntVector(vararg x: Int): Iterable<Int>, Comparable<IntVector> {
         val NE = NORTH + EAST
         val SE = SOUTH + EAST
         val SW = SOUTH + WEST
-
     }
 }

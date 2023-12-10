@@ -25,6 +25,15 @@ private fun IntVector.potentialNeighbours(): Sequence<IntVector> {
     ).map { this + it }
 }
 
+fun IntVector.fourPotentialNeighbours(): Sequence<IntVector> = sequenceOf(
+    IntVector.NORTH,
+    IntVector.EAST,
+    IntVector.SOUTH,
+    IntVector.WEST
+).map { this + it }
+
+
+
 // Only works with a 2-dimensional vector
 // Null if outside.
 operator fun List<String>.get(gridLocation: IntVector): Char? =
