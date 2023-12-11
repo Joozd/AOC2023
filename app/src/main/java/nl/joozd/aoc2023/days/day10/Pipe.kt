@@ -30,10 +30,10 @@ class Pipe(coordinates: IntArray, content: Char, originalMap: List<String>): Int
         return listOfNotNull(
             // Yeah I know, probably not the most understandable way.
             // For every 4 corners, check if the neighbour connects to this, if so, add that direction to the list.
-            (this + NORTH).takeIf { (it.itemInStringsList(originalMap) ?: 'X') in "|7F" } ?.let { NORTH },
-            (this + EAST).takeIf { (it.itemInStringsList(originalMap) ?: 'X') in "-7J" } ?.let { EAST },
-            (this + SOUTH).takeIf { (it.itemInStringsList(originalMap) ?: 'X') in "|LJ" } ?.let { SOUTH },
-            (this + WEST).takeIf { (it.itemInStringsList(originalMap) ?: 'X') in "-LF" } ?.let { WEST}
+            (this + NORTH).takeIf { (it.itemInMap(originalMap) ?: 'X') in "|7F" } ?.let { NORTH },
+            (this + EAST).takeIf { (it.itemInMap(originalMap) ?: 'X') in "-7J" } ?.let { EAST },
+            (this + SOUTH).takeIf { (it.itemInMap(originalMap) ?: 'X') in "|LJ" } ?.let { SOUTH },
+            (this + WEST).takeIf { (it.itemInMap(originalMap) ?: 'X') in "-LF" } ?.let { WEST}
         )
     }
 

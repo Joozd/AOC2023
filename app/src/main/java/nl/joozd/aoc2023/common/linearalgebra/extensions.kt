@@ -1,5 +1,7 @@
 package nl.joozd.aoc2023.common.linearalgebra
 
+import kotlin.math.absoluteValue
+
 /**
  * For performance, use a HashSet for [otherPositionVectors] if it is a large list.
  */
@@ -33,6 +35,13 @@ fun IntVector.fourPotentialNeighbours(): Sequence<IntVector> = sequenceOf(
 ).map { this + it }
 
 
+/**
+ * Both vectors need to be the same length
+ */
+fun IntVector.manhattanDistanceTo(other: IntVector): Int =
+    indices.sumOf {
+        (this[it] - other[it]).absoluteValue
+    }
 
 // Only works with a 2-dimensional vector
 // Null if outside.
