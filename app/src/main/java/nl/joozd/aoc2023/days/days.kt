@@ -3,6 +3,8 @@ package nl.joozd.aoc2023.days
 import nl.joozd.aoc2023.common.Solution
 import nl.joozd.aoc2023.days.day1.Day1
 import nl.joozd.aoc2023.days.day10.Day10
+import nl.joozd.aoc2023.days.day15.Day15
+import nl.joozd.aoc2023.days.day16.Day16
 import nl.joozd.aoc2023.days.day2.Day2
 import nl.joozd.aoc2023.days.day3.Day3
 import nl.joozd.aoc2023.days.day4.Day4
@@ -22,5 +24,7 @@ val days = listOf<Solution>(
     Day6(),
     Day7(),
     Day8(),
-    Day10()
+    Day10(),
+    Day15(),
+    Day16()
 )
