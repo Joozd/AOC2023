@@ -8,10 +8,10 @@ import nl.joozd.aoc2023.common.Solution
  */
 class Day15: Solution(15) {
     override val name = "Lens Library"
-    override fun answer1(input: String) =
+    override suspend fun answer1(input: String) =
         input.split(",").sumOf{ hash(it) }
 
-    override fun answer2(input: String): Int {
+    override suspend fun answer2(input: String): Int {
         val hm = AocHashMap()
         input.split(',').map { Step(it) }.forEach {step ->
             if(step.command == Step.REMOVE)

@@ -1,5 +1,6 @@
 package nl.joozd.aoc2023
 
+import kotlinx.coroutines.runBlocking
 import nl.joozd.aoc2023.days.day10.Day10
 import org.junit.Assert
 import org.junit.Test
@@ -8,11 +9,13 @@ class Day10Test {
     @Test
     fun testDay() {
         val day = Day10()
-        Assert.assertEquals(4, day.answer1(testData1))
-        Assert.assertEquals(8, day.answer1(testData2))
+        runBlocking {
+            Assert.assertEquals(4, day.answer1(testData1))
+            Assert.assertEquals(8, day.answer1(testData2))
 
-        Assert.assertEquals(4, day.answer2(testData3))
-        Assert.assertEquals(10, day.answer2(testData4))
+            Assert.assertEquals(4, day.answer2(testData3))
+            Assert.assertEquals(10, day.answer2(testData4))
+        }
     }
 
     // 2

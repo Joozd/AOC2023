@@ -3,14 +3,14 @@ package nl.joozd.aoc2023.days.day4
 import nl.joozd.aoc2023.common.Solution
 
 class Day4: Solution(4) {
-    override fun answer1(input: String): Any =
+    override suspend fun answer1(input: String): Any =
         getCardsNumbersPartOnly(input).sumOf { getCardValue(it) }
 
     /**
      * Keep a list of how many of each card we have.
      * We multiply the result of each card by the amount of it we have, and modify the list that keeps track of the amount of cards in place.
      */
-    override fun answer2(input: String): Any {
+    override suspend fun answer2(input: String): Any {
         val cards = getCardsNumbersPartOnly(input)
         val copies = IntArray(cards.size) { 1 } // start with 1 of each card
 

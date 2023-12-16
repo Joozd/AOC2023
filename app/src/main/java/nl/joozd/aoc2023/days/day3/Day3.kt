@@ -18,7 +18,7 @@ class Day3: Solution(3) {
      * Sum of all numbers that are adjacent to a symbol (any character that is not a digit or '.')
      * Includes diagonal.
      */
-    override fun answer1(input: String): Any{
+    override suspend fun answer1(input: String): Any{
         val validNumbers: List<NumberFinder.Number>
 
         val numbersTime = measureTime {
@@ -33,7 +33,7 @@ class Day3: Solution(3) {
         return validNumbers.sumOf{ it.value }
     }
 
-    override fun answer2(input: String): Any{
+    override suspend fun answer2(input: String): Any{
         val lines = input.lines()
         val possibleGears = findGears(lines)
         val gearsWithNumbersMap: Map<IntVector, List<NumberFinder.Number>>

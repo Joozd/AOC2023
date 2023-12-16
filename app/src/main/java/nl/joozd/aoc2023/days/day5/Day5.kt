@@ -4,7 +4,7 @@ import nl.joozd.aoc2023.common.Solution
 import nl.joozd.aoc2023.common.splitToLongs
 
 class Day5: Solution(5) {
-    override fun answer1(input: String): Long{
+    override suspend fun answer1(input: String): Long{
         // lines and back to a string so we have a predictable line end
         val blocks = makeBlocks(input)
 
@@ -22,7 +22,7 @@ class Day5: Solution(5) {
         }
     }
 
-    override fun answer2(input: String): Long{
+    override suspend fun answer2(input: String): Long{
         val blocks = makeBlocks(input)
         val mappersListReversed = makeMappers(blocks).reversed()
 

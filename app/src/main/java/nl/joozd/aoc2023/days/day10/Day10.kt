@@ -9,7 +9,7 @@ import nl.joozd.aoc2023.common.linearalgebra.fourPotentialNeighbours
 
 class Day10: Solution(10) {
     override val name = "Pipe Maze"
-    override fun answer1(input: String): Any {
+    override suspend fun answer1(input: String): Any {
         val pipesMap = makePipesMap(input.lines())
         val start = pipesMap.values.first { it.isStart }
 
@@ -31,7 +31,7 @@ class Day10: Solution(10) {
     }
 
     // 425, 430 too low
-    override fun answer2(input: String): Any{
+    override suspend fun answer2(input: String): Any{
         // add empty ground around this map to add area's of which we are sure they are "outside".
         // We only count "inside" so that is OK
         val linesWithExtraEmptyGround = input.lines().addCharactersAroundThisMap()

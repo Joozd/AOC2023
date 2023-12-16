@@ -1,6 +1,7 @@
 package nl.joozd.aoc2023.common
 
 import android.content.Context
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import kotlin.coroutines.CoroutineContext
+import kotlin.system.measureTimeMillis
 
 /**
  * A Solution. Days should inherit this.
@@ -32,14 +34,15 @@ abstract class Solution(private val day: Int): CoroutineScope  {
     private suspend fun input(context: Context): String =
         readAssetFile(context, "input$day.txt")
 
-    abstract fun answer1(input: String): Any?
-    abstract fun answer2(input: String): Any?
+    abstract suspend fun answer1(input: String): Any?
+    abstract suspend fun answer2(input: String): Any?
 
     //Caching for activity reconfiguration
     private var cachedAnswer1: String? = null
     private var cachedAnswer2: String? = null
 
     fun answers(context: Context): Flow<SolutionData>{
+        Log.i("BANAA", "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
         val resultsChannel = Channel<SolutionData>()
 
         when{
@@ -49,24 +52,36 @@ abstract class Solution(private val day: Int): CoroutineScope  {
             oneAndTwoAreDependant -> launch {
                 resultsChannel.send(placeholderData)
                 val input = input(context)
-
-                cachedAnswer1 = answer1(input).toString()
+                measureTimeMillis {
+                    cachedAnswer1 = answer1(input).toString()
+                }.also{Log.i("Solution", "Day $day.1: $cachedAnswer1 - $it millis") }
                 resultsChannel.send(SolutionData(id = day, result1 = cachedAnswer1!!))
 
-                cachedAnswer2 = answer2(input).toString()
+
+                measureTimeMillis {
+                    cachedAnswer2 = answer2(input).toString()
+                }.also{Log.i("Solution", "Day $day.2: $cachedAnswer1 - $it millis")}
                 resultsChannel.send(SolutionData(id = day, result1 = cachedAnswer1!!, result2 = cachedAnswer2!!))
+
             }
             // this is what would normally happen: Independent and not cached:
             else -> {
                 launch {
                     val input = input(context)
-                    cachedAnswer1 = answer1(input).toString()
+                    measureTimeMillis {
+                        cachedAnswer1 = answer1(input).toString()
+                    }
+                    .also {Log.i("Solution", "Day $day.1: $cachedAnswer1 - $it millis") }
                     resultsChannel.send(SolutionData(id = day, result1 = cachedAnswer1 ?: NOT_FOUND_YET, result2 = cachedAnswer2 ?: NOT_FOUND_YET))
                 }
 
                 launch {
                     val input = input(context)
-                    cachedAnswer2 = answer2(input).toString()
+                    measureTimeMillis {
+                        cachedAnswer2 = answer2(input).toString()
+                    }
+                    .also {Log.i("Solution", "Day $day.2: $cachedAnswer1 - $it millis")
+                    }
                     resultsChannel.send(SolutionData(id = day, result1 = cachedAnswer1 ?: NOT_FOUND_YET, result2 = cachedAnswer2 ?: NOT_FOUND_YET))
                 }
             }

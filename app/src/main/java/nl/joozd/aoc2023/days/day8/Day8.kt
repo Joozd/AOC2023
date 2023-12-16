@@ -8,7 +8,7 @@ class Day8: Solution(8) {
     override val name = "Haunted Wasteland"
 
     // 19631
-    override fun answer1(input: String): Long{
+    override suspend fun answer1(input: String): Long{
         val lines = input.lines()
         val nodesMap: Map<String, Node> = lines.drop(2)
             .map { Node.ofLine(it) }
@@ -29,7 +29,7 @@ class Day8: Solution(8) {
     }
 
     // 21003205388413
-    override fun answer2(input: String): Any {
+    override suspend fun answer2(input: String): Any {
         val lines = input.lines()
         val nodesMap: Map<String, Node> = lines.drop(2)
             .map { Node.ofLine(it) }

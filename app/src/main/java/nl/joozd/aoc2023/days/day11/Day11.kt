@@ -9,7 +9,7 @@ import nl.joozd.aoc2023.common.linearalgebra.manhattanDistanceTo
  */
 class Day11: Solution(11) {
     override val name = "Cosmic Expansion"
-    override fun answer1(input: String): Any {
+    override suspend fun answer1(input: String): Any {
         val expandedInput = expand(input)
         val stars = findStars(expandedInput)
 
@@ -22,7 +22,7 @@ class Day11: Solution(11) {
 
     }
 
-    override fun answer2(input: String) = -1L
+    override suspend fun answer2(input: String) = -1L
 
 
     /**

@@ -8,12 +8,12 @@ import nl.joozd.aoc2023.common.Solution
 class Day1: Solution(1) {
 
 
-    override fun answer1(input: String) = input.lines()
+    override suspend fun answer1(input: String) = input.lines()
         .sumOf{ line ->
             line.calibrationValue()
         }
 
-    override fun answer2(input: String) = input.lines()
+    override suspend fun answer2(input: String) = input.lines()
         .map{ it.numberify() }
         .sumOf{ line ->
             line.calibrationValue()

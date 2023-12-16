@@ -6,11 +6,11 @@ import nl.joozd.aoc2023.common.Solution
  * https://adventofcode.com/2023/day/2
  */
 class Day2: Solution(2) {
-    override fun answer1(input: String) = input.lines().sumOf {
+    override suspend fun answer1(input: String) = input.lines().sumOf {
         possibleGameValue(it)
     }
 
-    override fun answer2(input: String) = input.lines().sumOf{
+    override suspend fun answer2(input: String) = input.lines().sumOf{
         minCubesPower(it)
     }
 

@@ -19,7 +19,7 @@ class Day6: Solution(6) {
      * Only integers.
      */
 
-    override fun answer1(input: String): Long{
+    override suspend fun answer1(input: String): Long{
         val numbers = grabNumbers(input)
 
         // Pairs of duration to distance
@@ -36,7 +36,7 @@ class Day6: Solution(6) {
     /**
      * Remove all spaces and take it as one single race.
      */
-    override fun answer2(input: String): Long{
+    override suspend fun answer2(input: String): Long{
         val numbers = grabNumbers(input).map { it.joinToString("").toLong()}
         val race = numbers[0] to numbers[1]
 
