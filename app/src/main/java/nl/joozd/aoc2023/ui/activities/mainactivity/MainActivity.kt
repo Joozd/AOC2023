@@ -67,7 +67,7 @@ class MainActivity : ComponentActivity() {
         LaunchedEffect(calculate){
             // Check if cached data exists, if so, display that
             val cachedAnswer = viewModel.cachedData[answers.id] ?: solution.placeholderData
-            if (cachedAnswer.result1 != Solution.NOT_FOUND_YET || cachedAnswer.result2 != Solution.NOT_FOUND_YET) {
+            if (cachedAnswer.result1 != Solution.NOT_FOUND_YET && cachedAnswer.result2 != Solution.NOT_FOUND_YET) {
                 calculate = true // removes "calculate button"
                 answers = cachedAnswer
             }
