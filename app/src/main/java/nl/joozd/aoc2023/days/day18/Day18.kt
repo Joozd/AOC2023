@@ -5,7 +5,7 @@ import nl.joozd.aoc2023.common.linearalgebra.IntVector
 import nl.joozd.aoc2023.common.linearalgebra.fourPotentialNeighbours
 
 class Day18: Solution(18) {
-    override val name = "Placeholder Stub"
+    override val name = "Lavaduct Lagoon"
     override suspend fun answer1(input: String): Int {
         val movements = input.lines().map { Movement(it) }
         var currentPos = IntVector(0,0)

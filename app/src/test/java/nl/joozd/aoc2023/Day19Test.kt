@@ -15,7 +15,7 @@ class Day19Test{
 
             println("day 19.1: ${day.answer1(ACTUAL)}")
 
-            Assert.assertEquals(-1, day.answer2(testData))
+            Assert.assertEquals(167409079868000L, day.answer2(testData))
         }
 }
 private val testData = """px{a<2006:qkq,m>2090:A,rfg}

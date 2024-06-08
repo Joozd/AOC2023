@@ -18,7 +18,7 @@ class Day19: Solution(19) {
         return items.sumOf { functionsLibrary["in"]!!(it) }
     }
 
-    override suspend fun answer2(input: String) = -1L
+    override suspend fun answer2(input: String) = WorkflowSolver(input.split("\n\n").first().lines()).solve()
 
 
     private fun makeWorkflow(line: String, functionsLibrary: Map<String, WorkFlow>): Pair<String, WorkFlow>{
