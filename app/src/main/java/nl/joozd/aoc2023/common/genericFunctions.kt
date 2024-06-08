@@ -16,21 +16,23 @@ fun List<String>.addCharactersAroundThisMap(character: Char = '.'): List<String>
     return listOf(firstLastLine) + this.map { ".$it."} + firstLastLine
 }
 
-fun Collection<IntVector>.toAsciiMap(displayFunction: (IntVector) -> Char): String{
-    val minX = minOf{ it.first() }
-    val maxX = maxOf{ it.first() }
+fun <T: IntVector> Collection<T>.toAsciiMap(displayFunction: (T) -> Char): String{
+    val minX = minOf{ it[0] }
+    val maxX = maxOf{ it[0] }
     val minY = minOf{ it[1] }
     val maxY = maxOf{ it[1] }
 
     val xOffset = minX * -1
     val yOffset = minY * -1
 
-    val height = maxY - minY
-    val width = maxX - minX
+    val height = maxY - minY + 1
+    val width = maxX - minX + 1
 
-    return Array(height){ yNoOffset ->
-        CharArray(width){ xNoOffset ->
-            displayFunction(IntVector(xNoOffset + xOffset, yNoOffset + yOffset))
-        }.joinToString("")
-    }.joinToString("\n")
+    val result = Array(height) { CharArray(width) { ' '} }
+
+
+    forEach { item ->
+        result[item[1] + yOffset][item[0] + xOffset] = displayFunction(item)
+    }
+    return  result.joinToString("\n") { it.joinToString("")}
 }

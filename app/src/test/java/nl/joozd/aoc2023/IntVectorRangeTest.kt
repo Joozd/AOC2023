@@ -1,6 +1,7 @@
 package nl.joozd.aoc2023
 
 import nl.joozd.aoc2023.common.linearalgebra.IntVector
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class IntVectorRangeTest {
@@ -35,7 +36,20 @@ class IntVectorRangeTest {
         assert(!outside.overlaps(base))
         assert(partial.overlaps(base))
         assert(partialOneAxis.overlaps(base))
+    }
 
+    @Test
+    fun testMeasure(){
+        val surface = IntVector(1,1)..IntVector(3,4)
+        assertEquals(6, surface.measure())
 
+        val volume = IntVector(1,1,1)..IntVector(3,4,5)
+        assertEquals(24, volume.measure())
+
+        val surfaceWithNegative = IntVector(-1,-1)..IntVector(1,1)
+        assertEquals(4, surfaceWithNegative.measure())
+
+        val surfaceWithNegativeReverse = IntVector(1,1)..IntVector(-1,-1)
+        assertEquals(4, surfaceWithNegativeReverse.measure())
     }
 }

@@ -3,10 +3,14 @@ package nl.joozd.aoc2023.common.linearalgebra
 /**
  * IntVectors are immutable.
  */
-open class IntVector(vararg x: Int): Iterable<Int>, Comparable<IntVector> {
+open class IntVector(vararg values: Int): Iterable<Int>, Comparable<IntVector> {
     constructor(x: List<Int>): this(*x.toIntArray())
 
-    protected val vector: IntArray = x
+    protected val vector: IntArray = values
+
+    val x get() = this[0]
+
+    val y get() = this[1]
 
     val size get() = vector.size
 
@@ -65,6 +69,8 @@ open class IntVector(vararg x: Int): Iterable<Int>, Comparable<IntVector> {
      * to the specified [other] object, a negative number if it's less than [other], or a positive number
      * if it's greater than [other].
      * Undefined for vectors in different spans.
+     * Compares first element first, then second, etc, until it finds a difference.
+     * so (1,0) > (0,10) and (0,10) > (0,1)
      */
     override fun compareTo(other: IntVector): Int {
         if(other.size != this.size) return 0 // returns 0 for different length vectors
